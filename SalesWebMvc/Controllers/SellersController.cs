@@ -90,12 +90,12 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not found" }); ;
             }
             List<Department> departments = _departmentService.FindAll();
-            SellerFormViewModel viewModel = new SellerFormViewModel { Seller=obj,Departments=departments};
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
             return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id,Seller seller)
+        public IActionResult Edit(int id, Seller seller)
         {
             if (!ModelState.IsValid)
             {
@@ -107,16 +107,17 @@ namespace SalesWebMvc.Controllers
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" }); ;
             }
-            try { 
-            _sellerService.Update(seller);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
             }
-            catch(ApplicationException e)
+            catch (ApplicationException e)
             {
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-         
-           
+
+
         }
         public IActionResult Error(string message)
         {
